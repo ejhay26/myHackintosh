@@ -1,0 +1,27 @@
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+
+# Large archives & logs
+*.zip
+*.log
+opencore-*.txt
+*.tmp
+__pycache__/
+
+# External downloaded tools and cloned submodules
+tools/OpenCore/
+tools/OpenCore_DEBUG/
+tools/kexts/
+tools/kexts_extracted/
+tools/RealtekRTL8111-V2.4.2/
+tools/GenSMBIOS/
+tools/Getting-Started-With-ACPI/
+tools/OcBinaryData/
+tools/ProperTree/
+tools/SSDTTime/
+tools/USBToolBox/
+.vscode/
