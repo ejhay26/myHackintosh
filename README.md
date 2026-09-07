@@ -4,7 +4,7 @@
 [![macOS](https://img.shields.io/badge/macOS-Monterey%2012.x-brightgreen.svg)](https://www.apple.com/macos/monterey/)
 [![Architecture](https://img.shields.io/badge/Architecture-Intel%20Skylake-orange.svg)](https://ark.intel.com/content/www/us/en/ark/products/88193/intel-core-i5-6200u-processor-3m-cache-up-to-2-80-ghz.html)
 
-A complete, highly optimized, bare-metal OpenCore EFI configuration tailored for the **Lenovo Ideapad 300-14ISK**, specifically tuned for a **hardware-upgraded 1600x900 display panel** and dual-booting alongside Windows 10.
+A bare-metal OpenCore EFI configuration tailored for the **Lenovo Ideapad 300-14ISK**
 
 ---
 
