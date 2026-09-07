@@ -208,7 +208,7 @@
 				</data>
 				<key>framebuffer-fbmem</key>
 				<data>
-				AACQAA==
+				AABAAA==
 				</data>
 				<key>framebuffer-patch-enable</key>
 				<data>
@@ -216,15 +216,11 @@
 				</data>
 				<key>framebuffer-stolenmem</key>
 				<data>
-				AAAwAQ==
+				AACAAQ==
 				</data>
 				<key>framebuffer-unifiedmem</key>
 				<data>
 				AAAAgA==
-				</data>
-				<key>rps-control</key>
-				<data>
-				AQAAAA==
 				</data>
 			</dict>
 		</dict>
@@ -769,7 +765,7 @@
 				<key>ForceDisplayAlignment</key>
 				<false/>
 				<key>boot-args</key>
-				<string>keepsyms=1 debug=0x100 alcid=3 -igfxblr igfxonln=1</string>
+				<string>keepsyms=1 debug=0x100 alcid=3 -igfxblr unfairgva=1</string>
 				<key>csr-active-config</key>
 				<data>
 				AAAAAA==
