@@ -134,13 +134,15 @@ edid_1600x900 = bytes.fromhex(
 # Configure DeviceProperties
 config["DeviceProperties"]["Add"] = {
     "PciRoot(0x0)/Pci(0x2,0x0)": {
-        "AAPL,ig-platform-id": bytes.fromhex("00001619"),
-        "device-id": bytes.fromhex("16190000"),
+        "AAPL,ig-platform-id": bytes.fromhex("00001659"),
+        "device-id": bytes.fromhex("16590000"),
         "framebuffer-patch-enable": bytes.fromhex("01000000"),
-        "framebuffer-stolenmem": bytes.fromhex("00003001"),
+        "framebuffer-stolenmem": bytes.fromhex("00000002"),
         "framebuffer-fbmem": bytes.fromhex("00009000"),
+        "framebuffer-unifiedmem": bytes.fromhex("00000080"),
         "enable-backlight-registers-fix": bytes.fromhex("01000000"),
-        "enable-maxmem": bytes.fromhex("01000000"),
+        "enable-backlight-smoother": bytes.fromhex("01000000"),
+        "applbkl": bytes.fromhex("01000000"),
         "@0,display-dual-link": bytes.fromhex("01000000"),
         "AAPL00,override-no-connect": edid_1600x900,
         "framebuffer-con1-enable": bytes.fromhex("01000000"),
@@ -399,7 +401,7 @@ config["Misc"]["Tools"] = [
 # Configure NVRAM
 config["NVRAM"]["Add"]["7C436110-AB2A-4BBB-A880-FE41995C9F82"] = {
     "ForceDisplayAlignment": False,
-    "boot-args": "-v keepsyms=1 debug=0x100 alcid=3 -igfxblr igfxonln=1",
+    "boot-args": "keepsyms=1 debug=0x100 alcid=3 -igfxblr -igfxsklaskbl unfairgva=4",
     "csr-active-config": bytes.fromhex("00000000"),
     "prev-lang:kbd": "en-US:0",
     "run-efi-updater": "No"
