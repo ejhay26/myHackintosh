@@ -137,8 +137,8 @@ config["DeviceProperties"]["Add"] = {
         "AAPL,ig-platform-id": bytes.fromhex("00001659"),
         "device-id": bytes.fromhex("16590000"),
         "framebuffer-patch-enable": bytes.fromhex("01000000"),
-        "framebuffer-stolenmem": bytes.fromhex("00000002"),
-        "framebuffer-fbmem": bytes.fromhex("00009000"),
+        "framebuffer-stolenmem": bytes.fromhex("00008001"),
+        "framebuffer-fbmem": bytes.fromhex("00004000"),
         "framebuffer-unifiedmem": bytes.fromhex("00000080"),
         "enable-backlight-registers-fix": bytes.fromhex("01000000"),
         "enable-backlight-smoother": bytes.fromhex("01000000"),
@@ -340,7 +340,7 @@ kernel_quirks["LegacyCommpage"] = False
 kernel_quirks["PanicNoKextDump"] = True
 kernel_quirks["PowerTimeoutKernelPanic"] = True
 kernel_quirks["ProvideCurrentCpuInfo"] = False
-kernel_quirks["SetApfsTrimTimeout"] = -1
+kernel_quirks["SetApfsTrimTimeout"] = 0
 kernel_quirks["ThirdPartyDrives"] = False
 kernel_quirks["XhciPortLimit"] = False
 
@@ -401,7 +401,7 @@ config["Misc"]["Tools"] = [
 # Configure NVRAM
 config["NVRAM"]["Add"]["7C436110-AB2A-4BBB-A880-FE41995C9F82"] = {
     "ForceDisplayAlignment": False,
-    "boot-args": "keepsyms=1 debug=0x100 alcid=3 -igfxblr -igfxsklaskbl unfairgva=4",
+    "boot-args": "keepsyms=1 debug=0x100 alcid=3 -igfxblr -igfxsklaskbl -igfxdvmt unfairgva=4",
     "csr-active-config": bytes.fromhex("00000000"),
     "prev-lang:kbd": "en-US:0",
     "run-efi-updater": "No"

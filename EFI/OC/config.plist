@@ -208,7 +208,7 @@
 				</data>
 				<key>framebuffer-fbmem</key>
 				<data>
-				AACQAA==
+				AABAAA==
 				</data>
 				<key>framebuffer-patch-enable</key>
 				<data>
@@ -216,7 +216,7 @@
 				</data>
 				<key>framebuffer-stolenmem</key>
 				<data>
-				AAAAAg==
+				AACAAQ==
 				</data>
 				<key>framebuffer-unifiedmem</key>
 				<data>
@@ -584,7 +584,7 @@
 			<key>ProvideCurrentCpuInfo</key>
 			<false/>
 			<key>SetApfsTrimTimeout</key>
-			<integer>-1</integer>
+			<integer>0</integer>
 			<key>ThirdPartyDrives</key>
 			<false/>
 			<key>XhciPortLimit</key>
@@ -765,7 +765,7 @@
 				<key>ForceDisplayAlignment</key>
 				<false/>
 				<key>boot-args</key>
-				<string>keepsyms=1 debug=0x100 alcid=3 -igfxblr -igfxsklaskbl unfairgva=4</string>
+				<string>keepsyms=1 debug=0x100 alcid=3 -igfxblr -igfxsklaskbl unfairgva=4 -igfxdvmt</string>
 				<key>csr-active-config</key>
 				<data>
 				AAAAAA==
