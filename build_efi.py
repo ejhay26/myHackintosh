@@ -134,8 +134,8 @@ edid_1600x900 = bytes.fromhex(
 # Configure DeviceProperties
 config["DeviceProperties"]["Add"] = {
     "PciRoot(0x0)/Pci(0x2,0x0)": {
-        "AAPL,ig-platform-id": bytes.fromhex("00001659"),
-        "device-id": bytes.fromhex("16590000"),
+        "AAPL,ig-platform-id": bytes.fromhex("00001619"),
+        "device-id": bytes.fromhex("16190000"),
         "framebuffer-patch-enable": bytes.fromhex("01000000"),
         "framebuffer-stolenmem": bytes.fromhex("00008001"),
         "framebuffer-fbmem": bytes.fromhex("00004000"),
@@ -401,7 +401,7 @@ config["Misc"]["Tools"] = [
 # Configure NVRAM
 config["NVRAM"]["Add"]["7C436110-AB2A-4BBB-A880-FE41995C9F82"] = {
     "ForceDisplayAlignment": False,
-    "boot-args": "keepsyms=1 debug=0x100 alcid=3 -igfxblr -igfxsklaskbl -igfxdvmt unfairgva=4",
+    "boot-args": "keepsyms=1 debug=0x100 alcid=3 -igfxblr",
     "csr-active-config": bytes.fromhex("00000000"),
     "prev-lang:kbd": "en-US:0",
     "run-efi-updater": "No"

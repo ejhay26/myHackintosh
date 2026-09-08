@@ -173,7 +173,7 @@
 				</data>
 				<key>AAPL,ig-platform-id</key>
 				<data>
-				AAAWWQ==
+				AAAWGQ==
 				</data>
 				<key>AAPL00,override-no-connect</key>
 				<data>
@@ -188,7 +188,7 @@
 				</data>
 				<key>device-id</key>
 				<data>
-				FlkAAA==
+				FhkAAA==
 				</data>
 				<key>enable-backlight-registers-fix</key>
 				<data>
@@ -765,7 +765,7 @@
 				<key>ForceDisplayAlignment</key>
 				<false/>
 				<key>boot-args</key>
-				<string>keepsyms=1 debug=0x100 alcid=3 -igfxblr -igfxsklaskbl unfairgva=4 -igfxdvmt</string>
+				<string>keepsyms=1 debug=0x100 alcid=3 -igfxblr</string>
 				<key>csr-active-config</key>
 				<data>
 				AAAAAA==
