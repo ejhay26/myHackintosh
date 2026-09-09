@@ -325,7 +325,7 @@ kernel_quirks["AppleXcpmCfgLock"] = True
 kernel_quirks["AppleXcpmExtraMsrs"] = False
 kernel_quirks["AppleXcpmForceBoost"] = False
 kernel_quirks["CustomPciSerialDevice"] = False
-kernel_quirks["CustomSMBIOSGuid"] = False
+kernel_quirks["CustomSMBIOSGuid"] = True
 kernel_quirks["DisableIoMapper"] = True
 kernel_quirks["DisableIoMapperMapping"] = False
 kernel_quirks["DisableLinkeditJettison"] = True
@@ -401,7 +401,7 @@ config["Misc"]["Tools"] = [
 # Configure NVRAM
 config["NVRAM"]["Add"]["7C436110-AB2A-4BBB-A880-FE41995C9F82"] = {
     "ForceDisplayAlignment": False,
-    "boot-args": "keepsyms=1 debug=0x100 alcid=3 -igfxblr",
+    "boot-args": "keepsyms=1 debug=0x100 alcid=3 -igfxblr unfairgva=4",
     "csr-active-config": bytes.fromhex("00000000"),
     "prev-lang:kbd": "en-US:0",
     "run-efi-updater": "No"
@@ -432,7 +432,7 @@ config["PlatformInfo"]["Generic"] = {
 config["PlatformInfo"]["UpdateDataHub"] = True
 config["PlatformInfo"]["UpdateNVRAM"] = True
 config["PlatformInfo"]["UpdateSMBIOS"] = True
-config["PlatformInfo"]["UpdateSMBIOSMode"] = "Create"
+config["PlatformInfo"]["UpdateSMBIOSMode"] = "Custom"
 config["PlatformInfo"]["UseRawUuidEncoding"] = False
 
 # Configure UEFI

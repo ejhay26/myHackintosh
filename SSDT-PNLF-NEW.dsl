@@ -9,7 +9,17 @@ DefinitionBlock ("", "SSDT", 2, "CORP", "PNLF", 0x00000000)
             Name (_HID, EisaId ("APP0002"))
             Name (_CID, "backlight")
             Name (_UID, 0x10) // 16: Skylake / Kaby Lake (PWM Max 0x56c)
-            Name (_STA, 0x0B)
+            Method (_STA, 0, NotSerialized)
+            {
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0B)
+                }
+                Else
+                {
+                    Return (0x00)
+                }
+            }
         }
     }
 }
