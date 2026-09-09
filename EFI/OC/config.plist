@@ -765,10 +765,10 @@
 				<key>ForceDisplayAlignment</key>
 				<false/>
 				<key>boot-args</key>
-				<string>keepsyms=1 debug=0x100 alcid=3 -igfxblr unfairgva=4</string>
+				<string>keepsyms=1 debug=0x100 alcid=3 -igfxblr amfi=0x80 ipc_control_port_options=0 unfairgva=4</string>
 				<key>csr-active-config</key>
 				<data>
-				AAAAAA==
+				AwgAAA==
 				</data>
 				<key>prev-lang:kbd</key>
 				<string>en-US:0</string>
@@ -834,7 +834,7 @@
 			<key>AdviseFeatures</key>
 			<false/>
 			<key>MLB</key>
-			<string>C17631501GUHMHK8C</string>
+			<string>C027BDKKUQ2HVA</string>
 			<key>MaxBIOSVersion</key>
 			<false/>
 			<key>ProcessorType</key>
@@ -848,11 +848,11 @@
 			<key>SystemMemoryStatus</key>
 			<string>Auto</string>
 			<key>SystemProductName</key>
-			<string>MacBookPro13,1</string>
+			<string>MacBookPro14,1</string>
 			<key>SystemSerialNumber</key>
-			<string>C17S5SYSGVC1</string>
+			<string>C02TFPUHV29</string>
 			<key>SystemUUID</key>
-			<string>D54F1A5C-1ED1-47BF-B71F-09D39FEC341C</string>
+			<string>E35CB957-163D-4A66-AC32-7DA82F15C970</string>
 		</dict>
 		<key>UpdateDataHub</key>
 		<true/>
