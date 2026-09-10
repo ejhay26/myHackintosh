@@ -746,7 +746,7 @@
 				<key>ForceDisplayAlignment</key>
 				<false/>
 				<key>boot-args</key>
-				<string>keepsyms=1 debug=0x100 -v alcid=3 -igfxdvmt -no_compat_check igfxonln=1 igfxagdc=0 agdpmod=vit9696 amfi=0x80 amfi_get_out_of_my_way=1 ipc_control_port_options=0</string>
+				<string>keepsyms=1 debug=0x100 -v alcid=3 -igfxdvmt -no_compat_check -wegnoegpu igfxonln=1 igfxagdc=0 amfi=0x80 amfi_get_out_of_my_way=1 ipc_control_port_options=0</string>
 				<key>csr-active-config</key>
 				<data>
 				AwgAAA==
