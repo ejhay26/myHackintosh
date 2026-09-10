@@ -169,11 +169,11 @@
 			<dict>
 				<key>AAPL,ig-platform-id</key>
 				<data>
-				AAAWWQ==
+				AAAWGQ==
 				</data>
 				<key>device-id</key>
 				<data>
-				FlkAAA==
+				FhkAAA==
 				</data>
 				<key>enable-dvmt-calc-fix</key>
 				<data>
@@ -746,7 +746,7 @@
 				<key>ForceDisplayAlignment</key>
 				<false/>
 				<key>boot-args</key>
-				<string>keepsyms=1 debug=0x100 -v alcid=3 -igfxdvmt amfi=0x80 amfi_get_out_of_my_way=1 ipc_control_port_options=0</string>
+				<string>keepsyms=1 debug=0x100 -v alcid=3 -igfxdvmt -no_compat_check amfi=0x80 amfi_get_out_of_my_way=1 ipc_control_port_options=0</string>
 				<key>csr-active-config</key>
 				<data>
 				AwgAAA==
@@ -815,7 +815,7 @@
 			<key>AdviseFeatures</key>
 			<false/>
 			<key>MLB</key>
-			<string>C027082004NHWVP1H</string>
+			<string>C177243004NHMHK8C</string>
 			<key>MaxBIOSVersion</key>
 			<false/>
 			<key>ProcessorType</key>
@@ -829,11 +829,11 @@
 			<key>SystemMemoryStatus</key>
 			<string>Auto</string>
 			<key>SystemProductName</key>
-			<string>MacBookPro14,1</string>
+			<string>MacBookPro13,1</string>
 			<key>SystemSerialNumber</key>
-			<string>C02T9DYYHV29</string>
+			<string>C17TVXZNGVC1</string>
 			<key>SystemUUID</key>
-			<string>D40F55CB-7CD7-4712-A3CB-36C7FFF69DA6</string>
+			<string>194CF5C6-DD87-40B5-BEFE-02B7FCC8E5EB</string>
 		</dict>
 		<key>UpdateDataHub</key>
 		<true/>
