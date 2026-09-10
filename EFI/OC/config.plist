@@ -615,7 +615,7 @@
 			<key>HibernateSkipsPicker</key>
 			<false/>
 			<key>HideAuxiliary</key>
-			<true/>
+			<false/>
 			<key>InstanceIdentifier</key>
 			<string></string>
 			<key>LauncherOption</key>
@@ -765,7 +765,7 @@
 				<key>ForceDisplayAlignment</key>
 				<false/>
 				<key>boot-args</key>
-				<string>keepsyms=1 debug=0x100 -v alcid=3 -igfxblr -igfxdvmt amfi=0x80 amfi_get_out_of_my_way=1 ipc_control_port_options=0 agdpmod=vit9696 igfxagdc=0</string>
+				<string>keepsyms=1 debug=0x100 -v alcid=3 -igfxblr -igfxdvmt igfxonln=1 amfi=0x80 amfi_get_out_of_my_way=1 ipc_control_port_options=0 agdpmod=vit9696 igfxagdc=0</string>
 				<key>csr-active-config</key>
 				<data>
 				AwgAAA==
