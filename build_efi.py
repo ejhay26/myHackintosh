@@ -141,11 +141,6 @@ config["DeviceProperties"]["Add"] = {
         "framebuffer-fbmem": bytes.fromhex("00009000"),
         "enable-maxmem": bytes.fromhex("01000000"),
         "enable-dvmt-calc-fix": bytes.fromhex("01000000"),
-        "enable-backlight-registers-fix": bytes.fromhex("01000000"),
-        "enable-backlight-smoother": bytes.fromhex("01000000"),
-        "applbkl": bytes.fromhex("01000000"),
-        "@0,display-dual-link": bytes.fromhex("01000000"),
-        "AAPL00,override-no-connect": edid_1600x900,
         "framebuffer-con1-enable": bytes.fromhex("01000000"),
         "framebuffer-con1-type": bytes.fromhex("00080000")
     }
@@ -402,7 +397,7 @@ config["Misc"]["Tools"] = [
 # Configure NVRAM
 config["NVRAM"]["Add"]["7C436110-AB2A-4BBB-A880-FE41995C9F82"] = {
     "ForceDisplayAlignment": False,
-    "boot-args": "keepsyms=1 debug=0x100 -v alcid=3 -igfxblr -igfxdvmt amfi=0x80 amfi_get_out_of_my_way=1 ipc_control_port_options=0 agdpmod=vit9696 igfxagdc=0",
+    "boot-args": "keepsyms=1 debug=0x100 -v alcid=3 -igfxdvmt amfi=0x80 amfi_get_out_of_my_way=1 ipc_control_port_options=0",
     "csr-active-config": bytes.fromhex("03080000"),
     "prev-lang:kbd": "en-US:0",
     "run-efi-updater": "No"
