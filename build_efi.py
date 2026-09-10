@@ -134,15 +134,21 @@ edid_1600x900 = bytes.fromhex(
 # Configure DeviceProperties
 config["DeviceProperties"]["Add"] = {
     "PciRoot(0x0)/Pci(0x2,0x0)": {
-        "AAPL,ig-platform-id": bytes.fromhex("00001619"),
-        "device-id": bytes.fromhex("16190000"),
+        "AAPL,GfxYTile": bytes.fromhex("01000000"),
+        "AAPL,ig-platform-id": bytes.fromhex("00001B59"),
+        "AAPL,slot-name": "Internal@0,2,0",
+        "device-id": bytes.fromhex("16590000"),
+        "device_type": "VGA compatible controller",
+        "enable-dvmt-calc-fix": bytes.fromhex("01000000"),
+        "enable-hdmi20": bytes.fromhex("01000000"),
+        "enable-maxmem": bytes.fromhex("01000000"),
+        "framebuffer-con1-enable": bytes.fromhex("01000000"),
+        "framebuffer-con1-type": bytes.fromhex("00080000"),
+        "framebuffer-fbmem": bytes.fromhex("00009000"),
         "framebuffer-patch-enable": bytes.fromhex("01000000"),
         "framebuffer-stolenmem": bytes.fromhex("00003001"),
-        "framebuffer-fbmem": bytes.fromhex("00009000"),
-        "enable-maxmem": bytes.fromhex("01000000"),
-        "enable-dvmt-calc-fix": bytes.fromhex("01000000"),
-        "framebuffer-con1-enable": bytes.fromhex("01000000"),
-        "framebuffer-con1-type": bytes.fromhex("00080000")
+        "hda-gfx": "onboard-1",
+        "model": "Intel HD Graphics 520"
     }
 }
 config["DeviceProperties"]["Delete"] = {}
@@ -397,7 +403,7 @@ config["Misc"]["Tools"] = [
 # Configure NVRAM
 config["NVRAM"]["Add"]["7C436110-AB2A-4BBB-A880-FE41995C9F82"] = {
     "ForceDisplayAlignment": False,
-    "boot-args": "keepsyms=1 debug=0x100 -v alcid=3 -igfxdvmt -no_compat_check igfxonln=1 igfxagdc=0 agdpmod=vit9696 amfi=0x80 amfi_get_out_of_my_way=1 ipc_control_port_options=0",
+    "boot-args": "keepsyms=1 debug=0x100 -v alcid=3 -igfxdvmt igfxonln=1 igfxagdc=0 agdpmod=vit9696 amfi=0x80 amfi_get_out_of_my_way=1 ipc_control_port_options=0",
     "csr-active-config": bytes.fromhex("03080000"),
     "prev-lang:kbd": "en-US:0",
     "run-efi-updater": "No"
@@ -415,14 +421,14 @@ config["NVRAM"]["WriteFlash"] = True
 config["PlatformInfo"]["Generic"] = {
     "AdviseFeatures": False,
     "MaxBIOSVersion": False,
-    "MLB": "C177243004NHMHK8C",
+    "MLB": "C027082004NHWVP1H",
     "ProcessorType": 0,
     "ROM": bytes.fromhex("112233445566"),
     "SpoofVendor": True,
     "SystemMemoryStatus": "Auto",
-    "SystemProductName": "MacBookPro13,1",
-    "SystemSerialNumber": "C17TVXZNGVC1",
-    "SystemUUID": "194CF5C6-DD87-40B5-BEFE-02B7FCC8E5EB"
+    "SystemProductName": "MacBookPro14,1",
+    "SystemSerialNumber": "C02T9DYYHV29",
+    "SystemUUID": "D40F55CB-7CD7-4712-A3CB-36C7FFF69DA6"
 }
 config["PlatformInfo"]["UpdateDataHub"] = True
 config["PlatformInfo"]["UpdateNVRAM"] = True
