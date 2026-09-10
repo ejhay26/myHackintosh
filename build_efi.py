@@ -139,7 +139,6 @@ config["DeviceProperties"]["Add"] = {
         "framebuffer-patch-enable": bytes.fromhex("01000000"),
         "framebuffer-stolenmem": bytes.fromhex("00008001"),
         "framebuffer-fbmem": bytes.fromhex("00004000"),
-        "framebuffer-unifiedmem": bytes.fromhex("00000080"),
         "enable-backlight-registers-fix": bytes.fromhex("01000000"),
         "enable-backlight-smoother": bytes.fromhex("01000000"),
         "applbkl": bytes.fromhex("01000000"),
