@@ -1,7 +1,7 @@
-# Lenovo Ideapad 300-14ISK Hackintosh (macOS Monterey)
+# Lenovo Ideapad 300-14ISK Hackintosh (macOS Ventura)
 
 [![OpenCore](https://img.shields.io/badge/OpenCore-1.0.7-blue.svg)](https://github.com/acidanthera/OpenCorePkg)
-[![macOS](https://img.shields.io/badge/macOS-Monterey%2012.x-brightgreen.svg)](https://www.apple.com/macos/monterey/)
+[![macOS](https://img.shields.io/badge/macOS-Ventura%2013.x-brightgreen.svg)](https://www.apple.com/macos/ventura/)
 [![Architecture](https://img.shields.io/badge/Architecture-Intel%20Skylake-orange.svg)](https://ark.intel.com/content/www/us/en/ark/products/88193/intel-core-i5-6200u-processor-3m-cache-up-to-2-80-ghz.html)
 
 A bare-metal OpenCore EFI configuration tailored for the **Lenovo Ideapad 300-14ISK**
@@ -14,7 +14,7 @@ A bare-metal OpenCore EFI configuration tailored for the **Lenovo Ideapad 300-14
 | :--- | :--- | :--- |
 | **Model** | Lenovo Ideapad 300-14ISK (Type 80Q6) | Supported |
 | **CPU** | Intel Core i5-6200U (2 cores, 4 threads, 2.3 GHz - 2.8 GHz) | Native via `SSDT-PLUG-DRTNIA` (`plugin-type=1`) |
-| **iGPU** | Intel HD Graphics 520 (Skylake GT2, Device ID `0x1916`) | Full QE/CI Metal acceleration, 2048 MB VRAM |
+| **iGPU** | Intel HD Graphics 520 (Skylake GT2, Device ID `0x1916`) | Full QE/CI Metal acceleration via OCLC root patches, 2048 MB VRAM |
 | **RAM** | 16 GB DDR3L-1600 MHz (Dual-Channel) | Supported |
 | **Storage** | Kingston SA400S37240G 240GB SATA SSD | Dual-boot: Windows 10 (152 GB) + macOS (70 GB APFS) |
 | **Display (Custom)** | **14.0" 1600x900 HD+ (`CMN14A3` / N140FGE-EA2)** *(Upgraded from stock 1366x768)* | Fully working with native brightness slider & Fn keys |
@@ -92,8 +92,22 @@ If you ever want to switch between Graphical and Text bootloader modes:
 [ Disk 0 (Kingston SA400S37240G) ]
  ├── Partition 1: EFI System Partition (1.0 GB, FAT32)  -> OpenCore 1.0.7 + Windows Boot Manager
  ├── Partition 2: Windows 10 C: (152.6 GB, NTFS)        -> Windows OS (~30.5 GB free for dev)
- └── Partition 3: macOS Monterey (70.0 GB, APFS)        -> Macintosh HD
+ └── Partition 3: macOS Ventura (70.0 GB, APFS)         -> Macintosh HD
 ```
+
+---
+
+## OCLC (OpenCore Legacy Patcher) — Required for Ventura
+
+macOS Ventura dropped native Skylake iGPU Metal support. **OCLC must be run after every clean install or macOS update** to re-inject Skylake GPU kexts:
+
+1. Boot macOS Ventura (even if display is in software-rendered fallback mode)
+2. Download [OpenCore Legacy Patcher](https://github.com/dortania/OpenCore-Legacy-Patcher/releases)
+3. Run → **Post Install Root Patch** → Apply
+4. Reboot
+
+Without OCLC patches: no Metal, no GPU acceleration, apps will be slow/crash.
+With OCLC patches: full Metal, smooth animations, Apple Music Lossless works.
 
 *Note: Windows paging file is capped at 2048 MB - 4096 MB at `C:\pagefile.sys` to preserve SSD space for development.*
 
