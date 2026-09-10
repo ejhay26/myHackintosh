@@ -138,6 +138,8 @@ config["DeviceProperties"]["Add"] = {
         "device-id": bytes.fromhex("16190000"),
         "enable-dvmt-calc-fix": bytes.fromhex("01000000"),
         "enable-maxmem": bytes.fromhex("01000000"),
+        "framebuffer-con0-enable": bytes.fromhex("01000000"),
+        "framebuffer-con0-type": bytes.fromhex("02000000"),
         "framebuffer-con1-enable": bytes.fromhex("01000000"),
         "framebuffer-con1-type": bytes.fromhex("00080000"),
         "framebuffer-fbmem": bytes.fromhex("00009000"),
