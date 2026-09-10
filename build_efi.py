@@ -137,9 +137,8 @@ config["DeviceProperties"]["Add"] = {
         "AAPL,ig-platform-id": bytes.fromhex("00001619"),
         "device-id": bytes.fromhex("16190000"),
         "framebuffer-patch-enable": bytes.fromhex("01000000"),
-        "framebuffer-stolenmem": bytes.fromhex("00003001"),
-        "framebuffer-fbmem": bytes.fromhex("00009000"),
-        "enable-maxmem": bytes.fromhex("01000000"),
+        "framebuffer-stolenmem": bytes.fromhex("00008001"),
+        "framebuffer-fbmem": bytes.fromhex("00004000"),
         "enable-dvmt-calc-fix": bytes.fromhex("01000000"),
         "enable-backlight-registers-fix": bytes.fromhex("01000000"),
         "enable-backlight-smoother": bytes.fromhex("01000000"),
@@ -402,7 +401,7 @@ config["Misc"]["Tools"] = [
 # Configure NVRAM
 config["NVRAM"]["Add"]["7C436110-AB2A-4BBB-A880-FE41995C9F82"] = {
     "ForceDisplayAlignment": False,
-    "boot-args": "keepsyms=1 debug=0x100 -v alcid=3 -igfxblr -igfxdvmt -no_compat_check amfi=0x80 amfi_get_out_of_my_way=1 ipc_control_port_options=0 agdpmod=vit9696 igfxagdc=0",
+    "boot-args": "keepsyms=1 debug=0x100 -v alcid=3 -igfxblr -igfxdvmt igfxonln=1 amfi=0x80 amfi_get_out_of_my_way=1 ipc_control_port_options=0 agdpmod=vit9696 igfxagdc=0",
     "csr-active-config": bytes.fromhex("03080000"),
     "prev-lang:kbd": "en-US:0",
     "run-efi-updater": "No"
@@ -420,14 +419,14 @@ config["NVRAM"]["WriteFlash"] = True
 config["PlatformInfo"]["Generic"] = {
     "AdviseFeatures": False,
     "MaxBIOSVersion": False,
-    "MLB": "C17631501GUHMHK8C",
+    "MLB": "C027BDKKUQ2HVA",
     "ProcessorType": 0,
     "ROM": bytes.fromhex("112233445566"),
     "SpoofVendor": True,
     "SystemMemoryStatus": "Auto",
-    "SystemProductName": "MacBookPro13,1",
-    "SystemSerialNumber": "C17S5SYSGVC1",
-    "SystemUUID": "D54F1A5C-1ED1-47BF-B71F-09D39FEC341C"
+    "SystemProductName": "MacBookPro14,1",
+    "SystemSerialNumber": "C02TFPUHV29",
+    "SystemUUID": "E35CB957-163D-4A66-AC32-7DA82F15C970"
 }
 config["PlatformInfo"]["UpdateDataHub"] = True
 config["PlatformInfo"]["UpdateNVRAM"] = True
