@@ -134,8 +134,8 @@ edid_1600x900 = bytes.fromhex(
 # Configure DeviceProperties
 config["DeviceProperties"]["Add"] = {
     "PciRoot(0x0)/Pci(0x2,0x0)": {
-        "AAPL,ig-platform-id": bytes.fromhex("00001619"),
-        "device-id": bytes.fromhex("16190000"),
+        "AAPL,ig-platform-id": bytes.fromhex("00001659"),
+        "device-id": bytes.fromhex("16590000"),
         "framebuffer-patch-enable": bytes.fromhex("01000000"),
         "framebuffer-stolenmem": bytes.fromhex("00003001"),
         "framebuffer-fbmem": bytes.fromhex("00009000"),
