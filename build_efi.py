@@ -32,6 +32,7 @@ shutil.copy2("tools/OpenCore_DEBUG/X64/EFI/OC/OpenCore.efi", os.path.join(OC_DIR
 shutil.copy2("tools/OpenCore_DEBUG/X64/EFI/OC/Drivers/OpenRuntime.efi", os.path.join(DRIVERS_DIR, "OpenRuntime.efi"))
 shutil.copy2("tools/OpenCore_DEBUG/X64/EFI/OC/Drivers/OpenHfsPlus.efi", os.path.join(DRIVERS_DIR, "OpenHfsPlus.efi"))
 shutil.copy2("tools/OpenCore_DEBUG/X64/EFI/OC/Drivers/ResetNvramEntry.efi", os.path.join(DRIVERS_DIR, "ResetNvramEntry.efi"))
+shutil.copy2("tools/OpenCore_DEBUG/X64/EFI/OC/Drivers/OpenCanopy.efi", os.path.join(DRIVERS_DIR, "OpenCanopy.efi"))
 
 # 3. Copy Tools
 shutil.copy2("tools/OpenCore_DEBUG/X64/EFI/OC/Tools/OpenShell.efi", os.path.join(TOOLS_DIR, "OpenShell.efi"))
@@ -138,13 +139,13 @@ config["DeviceProperties"]["Add"] = {
         "device-id": bytes.fromhex("16190000"),
         "enable-dvmt-calc-fix": bytes.fromhex("01000000"),
         "enable-maxmem": bytes.fromhex("01000000"),
-        "framebuffer-con0-enable": bytes.fromhex("01000000"),
-        "framebuffer-con0-type": bytes.fromhex("02000000"),
-        "framebuffer-con1-enable": bytes.fromhex("01000000"),
-        "framebuffer-con1-type": bytes.fromhex("00080000"),
-        "framebuffer-fbmem": bytes.fromhex("00009000"),
+        "enable-dpcd-max-link-rate-fix": bytes.fromhex("01000000"),
         "framebuffer-patch-enable": bytes.fromhex("01000000"),
-        "framebuffer-stolenmem": bytes.fromhex("00003001")
+        "framebuffer-stolenmem": bytes.fromhex("00004001"),
+        "framebuffer-fbmem": bytes.fromhex("0000C000"),
+        "framebuffer-unifiedmem": bytes.fromhex("00000080"),
+        "framebuffer-con1-enable": bytes.fromhex("01000000"),
+        "framebuffer-con1-type": bytes.fromhex("00080000")
     }
 }
 config["DeviceProperties"]["Delete"] = {}
@@ -349,10 +350,10 @@ config["Misc"]["Boot"]["HibernateSkipsPicker"] = False
 config["Misc"]["Boot"]["HideAuxiliary"] = True
 config["Misc"]["Boot"]["LauncherOption"] = "Disabled"
 config["Misc"]["Boot"]["LauncherPath"] = "Default"
-config["Misc"]["Boot"]["PickerAttributes"] = 17
+config["Misc"]["Boot"]["PickerAttributes"] = 144
 config["Misc"]["Boot"]["PickerAudioAssist"] = False
-config["Misc"]["Boot"]["PickerMode"] = "Builtin"  # Text picker prevents black screen on laptop panel
-config["Misc"]["Boot"]["PickerVariant"] = "Auto"
+config["Misc"]["Boot"]["PickerMode"] = "External"
+config["Misc"]["Boot"]["PickerVariant"] = "Acidanthera\\GoldenGate"
 config["Misc"]["Boot"]["PollAppleHotKeys"] = True
 config["Misc"]["Boot"]["ShowPicker"] = True
 config["Misc"]["Boot"]["TakeoffDelay"] = 0
@@ -399,7 +400,7 @@ config["Misc"]["Tools"] = [
 # Configure NVRAM
 config["NVRAM"]["Add"]["7C436110-AB2A-4BBB-A880-FE41995C9F82"] = {
     "ForceDisplayAlignment": False,
-    "boot-args": "keepsyms=1 debug=0x100 -v alcid=3 -igfxdvmt -no_compat_check -wegnoegpu igfxonln=1 igfxagdc=0 amfi=0x80 amfi_get_out_of_my_way=1 ipc_control_port_options=0",
+    "boot-args": "-v keepsyms=1 debug=0x100 alcid=3 -igfxdvmt -no_compat_check -wegnoegpu -igfxmlr amfi=0x80 amfi_get_out_of_my_way=1 ipc_control_port_options=0",
     "csr-active-config": bytes.fromhex("03080000"),
     "prev-lang:kbd": "en-US:0",
     "run-efi-updater": "No"
@@ -461,6 +462,13 @@ config["UEFI"]["Drivers"] = [
         "Enabled": True,
         "LoadEarly": False,
         "Path": "ResetNvramEntry.efi"
+    },
+    {
+        "Arguments": "",
+        "Comment": "Graphical OpenCore GUI Driver",
+        "Enabled": True,
+        "LoadEarly": False,
+        "Path": "OpenCanopy.efi"
     }
 ]
 

@@ -175,6 +175,10 @@
 				<data>
 				FhkAAA==
 				</data>
+				<key>enable-dpcd-max-link-rate-fix</key>
+				<data>
+				AQAAAA==
+				</data>
 				<key>enable-dvmt-calc-fix</key>
 				<data>
 				AQAAAA==
@@ -182,14 +186,6 @@
 				<key>enable-maxmem</key>
 				<data>
 				AQAAAA==
-				</data>
-				<key>framebuffer-con0-enable</key>
-				<data>
-				AQAAAA==
-				</data>
-				<key>framebuffer-con0-type</key>
-				<data>
-				AgAAAA==
 				</data>
 				<key>framebuffer-con1-enable</key>
 				<data>
@@ -201,7 +197,7 @@
 				</data>
 				<key>framebuffer-fbmem</key>
 				<data>
-				AACQAA==
+				AADAAA==
 				</data>
 				<key>framebuffer-patch-enable</key>
 				<data>
@@ -209,7 +205,11 @@
 				</data>
 				<key>framebuffer-stolenmem</key>
 				<data>
-				AAAwAQ==
+				AABAAQ==
+				</data>
+				<key>framebuffer-unifiedmem</key>
+				<data>
+				AAAAgA==
 				</data>
 			</dict>
 		</dict>
@@ -314,24 +314,6 @@
 				<key>Arch</key>
 				<string>x86_64</string>
 				<key>BundlePath</key>
-				<string>BrightnessKeys.kext</string>
-				<key>Comment</key>
-				<string>Native Brightness Keys Handling</string>
-				<key>Enabled</key>
-				<true/>
-				<key>ExecutablePath</key>
-				<string>Contents/MacOS/BrightnessKeys</string>
-				<key>MaxKernel</key>
-				<string></string>
-				<key>MinKernel</key>
-				<string></string>
-				<key>PlistPath</key>
-				<string>Contents/Info.plist</string>
-			</dict>
-			<dict>
-				<key>Arch</key>
-				<string>x86_64</string>
-				<key>BundlePath</key>
 				<string>AppleALC.kext</string>
 				<key>Comment</key>
 				<string>Audio Driver</string>
@@ -375,6 +357,24 @@
 				<true/>
 				<key>ExecutablePath</key>
 				<string>Contents/MacOS/RealtekRTL8111</string>
+				<key>MaxKernel</key>
+				<string></string>
+				<key>MinKernel</key>
+				<string></string>
+				<key>PlistPath</key>
+				<string>Contents/Info.plist</string>
+			</dict>
+			<dict>
+				<key>Arch</key>
+				<string>x86_64</string>
+				<key>BundlePath</key>
+				<string>BrightnessKeys.kext</string>
+				<key>Comment</key>
+				<string>Fn Brightness Keys</string>
+				<key>Enabled</key>
+				<true/>
+				<key>ExecutablePath</key>
+				<string>Contents/MacOS/BrightnessKeys</string>
 				<key>MaxKernel</key>
 				<string></string>
 				<key>MinKernel</key>
@@ -754,7 +754,7 @@
 				<key>ForceDisplayAlignment</key>
 				<false/>
 				<key>boot-args</key>
-				<string>keepsyms=1 debug=0x100 -v alcid=3 -igfxdvmt -no_compat_check -wegnoegpu igfxonln=1 igfxagdc=0 amfi=0x80 amfi_get_out_of_my_way=1 ipc_control_port_options=0</string>
+				<string>-v keepsyms=1 debug=0x100 alcid=3 -igfxdvmt -no_compat_check -wegnoegpu -igfxmlr amfi=0x80 amfi_get_out_of_my_way=1 ipc_control_port_options=0</string>
 				<key>csr-active-config</key>
 				<data>
 				AwgAAA==
