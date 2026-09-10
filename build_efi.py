@@ -135,8 +135,10 @@ edid_1600x900 = bytes.fromhex(
 # Configure DeviceProperties
 config["DeviceProperties"]["Add"] = {
     "PciRoot(0x0)/Pci(0x2,0x0)": {
-        "AAPL,ig-platform-id": bytes.fromhex("00001619"),
+        "AAPL,ig-platform-id": bytes.fromhex("00001B19"),
         "device-id": bytes.fromhex("16190000"),
+        "AAPL00,override-no-connect": edid_1600x900,
+        "EDID": edid_1600x900,
         "enable-dvmt-calc-fix": bytes.fromhex("01000000"),
         "enable-maxmem": bytes.fromhex("01000000"),
         "enable-dpcd-max-link-rate-fix": bytes.fromhex("01000000"),

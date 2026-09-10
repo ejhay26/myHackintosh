@@ -169,7 +169,21 @@
 			<dict>
 				<key>AAPL,ig-platform-id</key>
 				<data>
-				AAAWGQ==
+				AAAbGQ==
+				</data>
+				<key>AAPL00,override-no-connect</key>
+				<data>
+				AP///////wANrqMUAAAAAB8WAQSVHxF4ArU1lFVTkykj
+				UFQAAAABAQEBAQEBAQEBAQEBAQEBHCpAVGGEGjAwIDUA
+				Na4QAAAaExxAVGGEGjAwIDUANa4QAAAaAAAAAAAAAAAA
+				AAAAAAAAAAAAAAAAAgAMPf8MPH0VESN9AAAAAG4=
+				</data>
+				<key>EDID</key>
+				<data>
+				AP///////wANrqMUAAAAAB8WAQSVHxF4ArU1lFVTkykj
+				UFQAAAABAQEBAQEBAQEBAQEBAQEBHCpAVGGEGjAwIDUA
+				Na4QAAAaExxAVGGEGjAwIDUANa4QAAAaAAAAAAAAAAAA
+				AAAAAAAAAAAAAAAAAgAMPf8MPH0VESN9AAAAAG4=
 				</data>
 				<key>device-id</key>
 				<data>
