@@ -349,7 +349,7 @@ kernel_quirks["XhciPortLimit"] = False
 config["Misc"]["Boot"]["ConsoleAttributes"] = 0
 config["Misc"]["Boot"]["HibernateMode"] = "None"
 config["Misc"]["Boot"]["HibernateSkipsPicker"] = False
-config["Misc"]["Boot"]["HideAuxiliary"] = False
+config["Misc"]["Boot"]["HideAuxiliary"] = True
 config["Misc"]["Boot"]["LauncherOption"] = "Disabled"
 config["Misc"]["Boot"]["LauncherPath"] = "Default"
 config["Misc"]["Boot"]["PickerAttributes"] = 17
@@ -402,7 +402,7 @@ config["Misc"]["Tools"] = [
 # Configure NVRAM
 config["NVRAM"]["Add"]["7C436110-AB2A-4BBB-A880-FE41995C9F82"] = {
     "ForceDisplayAlignment": False,
-    "boot-args": "keepsyms=1 debug=0x100 -v alcid=3 -igfxblr -igfxdvmt amfi=0x80 amfi_get_out_of_my_way=1 ipc_control_port_options=0 agdpmod=vit9696 igfxagdc=0 -igfxvesa",
+    "boot-args": "keepsyms=1 debug=0x100 -v alcid=3 -igfxblr -igfxdvmt amfi=0x80 amfi_get_out_of_my_way=1 ipc_control_port_options=0 agdpmod=vit9696 igfxagdc=0",
     "csr-active-config": bytes.fromhex("03080000"),
     "prev-lang:kbd": "en-US:0",
     "run-efi-updater": "No"
