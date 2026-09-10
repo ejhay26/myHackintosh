@@ -202,6 +202,10 @@
 				<data>
 				AQAAAA==
 				</data>
+				<key>enable-maxmem</key>
+				<data>
+				AQAAAA==
+				</data>
 				<key>framebuffer-con1-enable</key>
 				<data>
 				AQAAAA==
@@ -212,7 +216,7 @@
 				</data>
 				<key>framebuffer-fbmem</key>
 				<data>
-				AABAAA==
+				AACQAA==
 				</data>
 				<key>framebuffer-patch-enable</key>
 				<data>
@@ -220,7 +224,7 @@
 				</data>
 				<key>framebuffer-stolenmem</key>
 				<data>
-				AACAAQ==
+				AAAwAQ==
 				</data>
 			</dict>
 		</dict>
@@ -765,7 +769,7 @@
 				<key>ForceDisplayAlignment</key>
 				<false/>
 				<key>boot-args</key>
-				<string>keepsyms=1 debug=0x100 -v alcid=3 -igfxblr -igfxdvmt igfxonln=1 amfi=0x80 amfi_get_out_of_my_way=1 ipc_control_port_options=0 agdpmod=vit9696 igfxagdc=0</string>
+				<string>keepsyms=1 debug=0x100 -v alcid=3 -igfxblr -igfxdvmt -no_compat_check amfi=0x80 amfi_get_out_of_my_way=1 ipc_control_port_options=0 agdpmod=vit9696 igfxagdc=0</string>
 				<key>csr-active-config</key>
 				<data>
 				AwgAAA==
@@ -834,7 +838,7 @@
 			<key>AdviseFeatures</key>
 			<false/>
 			<key>MLB</key>
-			<string>C027BDKKUQ2HVA</string>
+			<string>C17631501GUHMHK8C</string>
 			<key>MaxBIOSVersion</key>
 			<false/>
 			<key>ProcessorType</key>
@@ -848,11 +852,11 @@
 			<key>SystemMemoryStatus</key>
 			<string>Auto</string>
 			<key>SystemProductName</key>
-			<string>MacBookPro14,1</string>
+			<string>MacBookPro13,1</string>
 			<key>SystemSerialNumber</key>
-			<string>C02TFPUHV29</string>
+			<string>C17S5SYSGVC1</string>
 			<key>SystemUUID</key>
-			<string>E35CB957-163D-4A66-AC32-7DA82F15C970</string>
+			<string>D54F1A5C-1ED1-47BF-B71F-09D39FEC341C</string>
 		</dict>
 		<key>UpdateDataHub</key>
 		<true/>
