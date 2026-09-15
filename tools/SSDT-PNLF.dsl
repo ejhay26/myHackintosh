@@ -9,9 +9,9 @@
  *
  * Original Table Header:
  *     Signature        "SSDT"
- *     Length           0x00000078 (120)
+ *     Length           0x0000008F (143)
  *     Revision         0x02
- *     Checksum         0x31
+ *     Checksum         0x75
  *     OEM ID           "CORP"
  *     OEM Table ID     "PNLF"
  *     OEM Revision     0x00000000 (0)
@@ -29,7 +29,17 @@ DefinitionBlock ("", "SSDT", 2, "CORP", "PNLF", 0x00000000)
             Name (_HID, EisaId ("APP0002"))  // _HID: Hardware ID
             Name (_CID, "backlight")  // _CID: Compatible ID
             Name (_UID, 0x10)  // _UID: Unique ID
-            Name (_STA, 0x0B)  // _STA: Status
+            Method (_STA, 0, NotSerialized)  // _STA: Status
+            {
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0B)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
+            }
         }
     }
 }

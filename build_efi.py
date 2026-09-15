@@ -5,6 +5,11 @@ import plistlib
 import subprocess
 
 print("=== Starting OpenCore EFI Assembly for Lenovo Ideapad 300-14ISK (DEBUG Build) ===")
+# CHANGE LOG:
+# v2 (2026-09-10):
+#   - Removed framebuffer-unifiedmem (0x80000000 = 2GB false claim -> System Agent bus error)
+#   - Corrected ig-platform-id: 0x191B0000 -> 0x19160000 (single-eDP SKL, no phantom connectors)
+#   - Added unfairgva=1 to boot-args (QuickSync DRM fix, no iMacPro1,1 board spoof)
 
 # Base paths
 WORKSPACE = os.path.dirname(os.path.abspath(__file__))
@@ -45,6 +50,7 @@ acpi_sources = [
     ("tools/Getting-Started-With-ACPI/extra-files/compiled/SSDT-PLUG-DRTNIA.aml", "SSDT-PLUG-DRTNIA.aml"),
     ("tools/Getting-Started-With-ACPI/extra-files/compiled/SSDT-EC-USBX-LAPTOP.aml", "SSDT-EC-USBX-LAPTOP.aml"),
     ("tools/Getting-Started-With-ACPI/extra-files/compiled/SSDT-PNLF.aml", "SSDT-PNLF.aml"),
+    ("tools/Getting-Started-With-ACPI/extra-files/compiled/SSDT-GPU-DISABLE.aml", "SSDT-GPU-DISABLE.aml"),
 ]
 
 for src, dst_name in acpi_sources:
@@ -60,7 +66,7 @@ kexts_to_copy = [
     ("tools/kexts_extracted/WhateverGreen/WhateverGreen.kext", "WhateverGreen.kext"),
     ("tools/kexts_extracted/AppleALC/AppleALC.kext", "AppleALC.kext"),
     ("tools/kexts_extracted/ECEnabler/ECEnabler.kext", "ECEnabler.kext"),
-    ("tools/kexts_extracted/RealtekRTL8111/RealtekRTL8111-V3.0.0/Release/RealtekRTL8111.kext", "RealtekRTL8111.kext"),
+    ("tools/RealtekRTL8111-V2.4.2/RealtekRTL8111-V2.4.2/Release/RealtekRTL8111.kext", "RealtekRTL8111.kext"),
     ("tools/kexts_extracted/BrightnessKeys/BrightnessKeys.kext", "BrightnessKeys.kext"),
     ("tools/kexts_extracted/VoodooPS2/VoodooPS2Controller.kext", "VoodooPS2Controller.kext"),
     ("tools/kexts_extracted/USBToolBox/USBToolBox.kext", "USBToolBox.kext"),
@@ -96,6 +102,11 @@ config["ACPI"]["Add"] = [
         "Comment": "Native Backlight Control for Skylake HD 520 (_UID 16)",
         "Enabled": True,
         "Path": "SSDT-PNLF.aml"
+    },
+    {
+        "Comment": "Disable discrete AMD Radeon GPU (PEG0.PEGP)",
+        "Enabled": True,
+        "Path": "SSDT-GPU-DISABLE.aml"
     }
 ]
 
@@ -135,19 +146,28 @@ edid_1600x900 = bytes.fromhex(
 # Configure DeviceProperties
 config["DeviceProperties"]["Add"] = {
     "PciRoot(0x0)/Pci(0x2,0x0)": {
-        "AAPL,ig-platform-id": bytes.fromhex("00001B19"),
-        "device-id": bytes.fromhex("16190000"),
-        "AAPL00,override-no-connect": edid_1600x900,
-        "EDID": edid_1600x900,
-        "enable-dvmt-calc-fix": bytes.fromhex("01000000"),
-        "enable-maxmem": bytes.fromhex("01000000"),
-        "enable-dpcd-max-link-rate-fix": bytes.fromhex("01000000"),
+        "AAPL,ig-platform-id": bytes.fromhex("00001619"),     # 0x19160000 = SKL HD 520 Native
+        "device-id": bytes.fromhex("16190000"),               # 0x19160000 = Native HD 520
+        "AAPL00,DualLink": bytes.fromhex("01000000"),         # 1 = DualLink eDP bus for 1600x900+ high-res panel
+        "@0,display-dual-link": bytes.fromhex("01000000"),    # Connector 0 dual-link signaling
+        "AAPL00,override-no-connect": edid_1600x900,          # Hardware EDID for 1600x900 CMN14A3
+        "disable-agdc": bytes.fromhex("01000000"),            # Disable AppleGraphicsDeviceControl
+        "enable-dvmt-calc-fix": bytes.fromhex("01000000"),     # Fix getUnifiedMemorySize assertion panic
         "framebuffer-patch-enable": bytes.fromhex("01000000"),
-        "framebuffer-stolenmem": bytes.fromhex("00004001"),
-        "framebuffer-fbmem": bytes.fromhex("0000C000"),
-        "framebuffer-unifiedmem": bytes.fromhex("00000080"),
-        "framebuffer-con1-enable": bytes.fromhex("01000000"),
-        "framebuffer-con1-type": bytes.fromhex("00080000")
+        "framebuffer-stolenmem": bytes.fromhex("00004001"),   # 20 MB stolen memory
+        "framebuffer-fbmem": bytes.fromhex("0000c000"),       # 12 MB framebuffer (fixes 1600x900 double buffer overflow freeze!)
+        "framebuffer-con0-enable": bytes.fromhex("01000000"), # Internal eDP port enable
+        "framebuffer-con0-type": bytes.fromhex("00040000"),   # DisplayPort/eDP type (fixes LVDS DDI transmitter hang)
+        "framebuffer-con1-enable": bytes.fromhex("01000000"), # HDMI port enable
+        "framebuffer-con1-type": bytes.fromhex("00080000"),   # HDMI type
+        "hda-gfx": "onboard-1",
+        "model": "Intel HD Graphics 520"
+        # NOTE: rps-control is STRICTLY OMITTED to prevent the 5-second RC6 GPU idle freeze!
+    },
+    "PciRoot(0x0)/Pci(0x1,0x0)/Pci(0x0,0x0)": {
+        "IOName": "#display",
+        "class-code": bytes.fromhex("ffffffff"),
+        "name": b"#display\x00"
     }
 }
 config["DeviceProperties"]["Delete"] = {}
@@ -402,8 +422,8 @@ config["Misc"]["Tools"] = [
 # Configure NVRAM
 config["NVRAM"]["Add"]["7C436110-AB2A-4BBB-A880-FE41995C9F82"] = {
     "ForceDisplayAlignment": False,
-    "boot-args": "-v keepsyms=1 debug=0x100 alcid=3 -igfxdvmt -no_compat_check -wegnoegpu -igfxmlr amfi=0x80 amfi_get_out_of_my_way=1 ipc_control_port_options=0",
-    "csr-active-config": bytes.fromhex("03080000"),
+    "boot-args": "-v keepsyms=1 debug=0x100 alcid=3 -igfxdvmt -wegnoegpu unfairgva=1",
+    "csr-active-config": bytes.fromhex("00000000"),
     "prev-lang:kbd": "en-US:0",
     "run-efi-updater": "No"
 }
@@ -541,19 +561,23 @@ archive_path = os.path.join(WORKSPACE, "EFI-Lenovo-Ideapad-300-14ISK-Monterey-DE
 shutil.make_archive(archive_path, 'zip', root_dir=WORKSPACE, base_dir="EFI")
 print(f"Archived EFI to: {archive_path}.zip")
 
-# Auto deploy to USB drive if S:\ exists
-if os.path.exists("S:\\"):
-    print("\n=== Auto-Deploying updated EFI to USB Drive (S:\\) ===")
-    target_s_efi = "S:\\EFI"
-    if os.path.exists(target_s_efi):
-        shutil.rmtree(target_s_efi)
-    shutil.copytree(EFI_DIR, target_s_efi)
-    print("Successfully copied fresh EFI folder to S:\\EFI!")
-    
-    # Also clean out the old empty log file on S:\
-    old_log = "S:\\opencore-2026-09-06-011226.txt"
-    if os.path.exists(old_log):
-        os.remove(old_log)
-        print("Cleaned up previous empty log file from USB drive.")
+# Safe deploy to S:\ or Z:\ if present (protects Windows Microsoft/ bootloader)
+for drive_letter in ["S:\\", "Z:\\"]:
+    if os.path.exists(drive_letter):
+        print(f"\n=== Safe-Deploying updated EFI to {drive_letter} ===")
+        target_efi = os.path.join(drive_letter, "EFI")
+        if os.path.exists(os.path.join(target_efi, "Microsoft")):
+            print(f"NOTE: Internal/dual-boot drive detected ({drive_letter}EFI\\Microsoft present). Protecting Windows bootloader.")
+        
+        # Only update BOOT and OC directories; NEVER delete target EFI root
+        for sub in ["BOOT", "OC"]:
+            src_sub = os.path.join(EFI_DIR, sub)
+            dst_sub = os.path.join(target_efi, sub)
+            if os.path.exists(dst_sub):
+                shutil.rmtree(dst_sub)
+            shutil.copytree(src_sub, dst_sub)
+            print(f"Safely updated {drive_letter}EFI\\{sub}")
+        
+        print(f"Successfully deployed fresh OpenCore to {drive_letter}EFI without touching other bootloaders!")
 
 print("\n=== OpenCore EFI DEBUG Build Completed Successfully! ===")
