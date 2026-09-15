@@ -60,6 +60,8 @@ for src, dst_name in acpi_sources:
 # 6. Copy Kexts
 kexts_to_copy = [
     ("tools/kexts_extracted/Lilu/Lilu.kext", "Lilu.kext"),
+    ("tools/kexts_extracted/RestrictEvents/RestrictEvents.kext", "RestrictEvents.kext"),
+    ("tools/kexts_extracted/AMFIPass/AMFIPass.kext", "AMFIPass.kext"),
     ("tools/kexts_extracted/VirtualSMC/Kexts/VirtualSMC.kext", "VirtualSMC.kext"),
     ("tools/kexts_extracted/VirtualSMC/Kexts/SMCBatteryManager.kext", "SMCBatteryManager.kext"),
     ("tools/kexts_extracted/VirtualSMC/Kexts/SMCProcessor.kext", "SMCProcessor.kext"),
@@ -180,6 +182,26 @@ config["Kernel"]["Add"] = [
         "Comment": "Patch Engine",
         "Enabled": True,
         "ExecutablePath": "Contents/MacOS/Lilu",
+        "MaxKernel": "",
+        "MinKernel": "",
+        "PlistPath": "Contents/Info.plist"
+    },
+    {
+        "Arch": "x86_64",
+        "BundlePath": "RestrictEvents.kext",
+        "Comment": "Block unwanted processes and force VMM for OTA updates",
+        "Enabled": True,
+        "ExecutablePath": "Contents/MacOS/RestrictEvents",
+        "MaxKernel": "",
+        "MinKernel": "",
+        "PlistPath": "Contents/Info.plist"
+    },
+    {
+        "Arch": "x86_64",
+        "BundlePath": "AMFIPass.kext",
+        "Comment": "AMFI Pass for OCLP root patches",
+        "Enabled": True,
+        "ExecutablePath": "Contents/MacOS/AMFIPass",
         "MaxKernel": "",
         "MinKernel": "",
         "PlistPath": "Contents/Info.plist"
@@ -422,8 +444,8 @@ config["Misc"]["Tools"] = [
 # Configure NVRAM
 config["NVRAM"]["Add"]["7C436110-AB2A-4BBB-A880-FE41995C9F82"] = {
     "ForceDisplayAlignment": False,
-    "boot-args": "-v keepsyms=1 debug=0x100 alcid=3 -igfxdvmt -wegnoegpu unfairgva=1",
-    "csr-active-config": bytes.fromhex("00000000"),
+    "boot-args": "-v keepsyms=1 debug=0x100 alcid=3 -igfxdvmt -wegnoegpu unfairgva=1 -no_compat_check revpatch=sbvmm ipc_control_port_options=0 -igfxvesa",
+    "csr-active-config": bytes.fromhex("03080000"),
     "prev-lang:kbd": "en-US:0",
     "run-efi-updater": "No"
 }
