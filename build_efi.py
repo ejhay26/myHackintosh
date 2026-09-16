@@ -47,9 +47,9 @@ shutil.copytree("tools/OcBinaryData/Resources", RESOURCES_DIR, dirs_exist_ok=Tru
 
 # 5. Copy ACPI Tables
 acpi_sources = [
-    ("tools/Getting-Started-With-ACPI/extra-files/compiled/SSDT-PLUG-DRTNIA.aml", "SSDT-PLUG-DRTNIA.aml"),
-    ("tools/Getting-Started-With-ACPI/extra-files/compiled/SSDT-EC-USBX-LAPTOP.aml", "SSDT-EC-USBX-LAPTOP.aml"),
-    ("tools/Getting-Started-With-ACPI/extra-files/compiled/SSDT-PNLF.aml", "SSDT-PNLF.aml"),
+    ("tools/acpi_original/SSDT-PLUG-DRTNIA.aml", "SSDT-PLUG-DRTNIA.aml"),
+    ("tools/acpi_original/SSDT-EC-USBX-LAPTOP.aml", "SSDT-EC-USBX-LAPTOP.aml"),
+    ("tools/acpi_original/SSDT-PNLF.aml", "SSDT-PNLF.aml"),
 ]
 
 for src, dst_name in acpi_sources:
@@ -139,12 +139,10 @@ config["DeviceProperties"]["Add"] = {
         "enable-dvmt-calc-fix": bytes.fromhex("01000000"),     # Fix getUnifiedMemorySize assertion panic
         "enable-maxmem": bytes.fromhex("01000000"),            # Maximize graphics memory allocation
         "framebuffer-patch-enable": bytes.fromhex("01000000"),
-        "framebuffer-stolenmem": bytes.fromhex("00004001"),   # 20 MB stolen memory (anti-stutter fix)
-        "framebuffer-fbmem": bytes.fromhex("0000c000"),       # 12 MB framebuffer (fixes 1600x900 double buffer overflow freeze!)
+        "framebuffer-stolenmem": bytes.fromhex("00003001"),   # 19 MB stolen memory (safe 28MB total with 9MB fbmem)
+        "framebuffer-fbmem": bytes.fromhex("00009000"),       # 9 MB framebuffer
         "framebuffer-con1-enable": bytes.fromhex("01000000"), # HDMI port enable
-        "framebuffer-con1-type": bytes.fromhex("00080000"),   # HDMI type
-        "hda-gfx": "onboard-1",
-        "model": "Intel HD Graphics 520"
+        "framebuffer-con1-type": bytes.fromhex("00080000")    # HDMI type
         # NOTE: rps-control is STRICTLY OMITTED to prevent the 5-second RC6 GPU idle freeze!
     }
 }
@@ -400,7 +398,7 @@ config["Misc"]["Tools"] = [
 # Configure NVRAM
 config["NVRAM"]["Add"]["7C436110-AB2A-4BBB-A880-FE41995C9F82"] = {
     "ForceDisplayAlignment": False,
-    "boot-args": "-v keepsyms=1 debug=0x100 alcid=3 -igfxdvmt -wegnoegpu -no_compat_check igfxagdc=0 agdpmod=vit9696",
+    "boot-args": "-v keepsyms=1 debug=0x100 alcid=3 -igfxdvmt -wegnoegpu -no_compat_check igfxagdc=0 agdpmod=vit9696 amfi=0x80 amfi_get_out_of_my_way=1 ipc_control_port_options=0",
     "csr-active-config": bytes.fromhex("03080000"),
     "prev-lang:kbd": "en-US:0",
     "run-efi-updater": "No"
@@ -418,14 +416,14 @@ config["NVRAM"]["WriteFlash"] = True
 config["PlatformInfo"]["Generic"] = {
     "AdviseFeatures": False,
     "MaxBIOSVersion": False,
-    "MLB": "C177243004NHMHK8C",
+    "MLB": "C027082004NHWVP1H",
     "ProcessorType": 0,
     "ROM": bytes.fromhex("112233445566"),
     "SpoofVendor": True,
     "SystemMemoryStatus": "Auto",
-    "SystemProductName": "MacBookPro13,1",
-    "SystemSerialNumber": "C17TVXZNGVC1",
-    "SystemUUID": "194CF5C6-DD87-40B5-BEFE-02B7FCC8E5EB"
+    "SystemProductName": "MacBookPro14,1",
+    "SystemSerialNumber": "C02T9DYYHV29",
+    "SystemUUID": "D40F55CB-7CD7-4712-A3CB-36C7FFF69DA6"
 }
 config["PlatformInfo"]["UpdateDataHub"] = True
 config["PlatformInfo"]["UpdateNVRAM"] = True
@@ -508,7 +506,7 @@ config["UEFI"]["Quirks"]["ExitBootServicesDelay"] = 0
 config["UEFI"]["Quirks"]["ForceOcWriteFlash"] = False
 config["UEFI"]["Quirks"]["ForgeUefiSupport"] = False
 config["UEFI"]["Quirks"]["IgnoreInvalidFlexRatio"] = False
-config["UEFI"]["Quirks"]["ReleaseUsbOwnership"] = False  # False avoids resetting USB controller during boot
+config["UEFI"]["Quirks"]["ReleaseUsbOwnership"] = True  # True releases USB controller from BIOS for clean OS handoff
 config["UEFI"]["Quirks"]["ReloadOptionRoms"] = False
 config["UEFI"]["Quirks"]["RequestBootVarRouting"] = True
 config["UEFI"]["Quirks"]["ResizeGpuBars"] = -1
