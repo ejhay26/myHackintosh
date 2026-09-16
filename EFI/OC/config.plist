@@ -38,14 +38,6 @@
 				<key>Path</key>
 				<string>SSDT-PNLF.aml</string>
 			</dict>
-			<dict>
-				<key>Comment</key>
-				<string>Disable discrete AMD Radeon GPU (PEG0.PEGP)</string>
-				<key>Enabled</key>
-				<true/>
-				<key>Path</key>
-				<string>SSDT-GPU-DISABLE.aml</string>
-			</dict>
 		</array>
 		<key>Delete</key>
 		<array/>
@@ -173,59 +165,23 @@
 	<dict>
 		<key>Add</key>
 		<dict>
-			<key>PciRoot(0x0)/Pci(0x1,0x0)/Pci(0x0,0x0)</key>
-			<dict>
-				<key>IOName</key>
-				<string>#display</string>
-				<key>class-code</key>
-				<data>
-				/////w==
-				</data>
-				<key>name</key>
-				<data>
-				I2Rpc3BsYXkA
-				</data>
-			</dict>
 			<key>PciRoot(0x0)/Pci(0x2,0x0)</key>
 			<dict>
-				<key>@0,display-dual-link</key>
-				<data>
-				AQAAAA==
-				</data>
 				<key>AAPL,ig-platform-id</key>
 				<data>
 				AAAWGQ==
-				</data>
-				<key>AAPL00,DualLink</key>
-				<data>
-				AQAAAA==
-				</data>
-				<key>AAPL00,override-no-connect</key>
-				<data>
-				AP///////wANrqMUAAAAAB8WAQSVHxF4ArU1lFVTkykj
-				UFQAAAABAQEBAQEBAQEBAQEBAQEBHCpAVGGEGjAwIDUA
-				Na4QAAAaExxAVGGEGjAwIDUANa4QAAAaAAAAAAAAAAAA
-				AAAAAAAAAAAAAAAAAgAMPf8MPH0VESN9AAAAAG4=
 				</data>
 				<key>device-id</key>
 				<data>
 				FhkAAA==
 				</data>
-				<key>disable-agdc</key>
-				<data>
-				AQAAAA==
-				</data>
 				<key>enable-dvmt-calc-fix</key>
 				<data>
 				AQAAAA==
 				</data>
-				<key>framebuffer-con0-enable</key>
+				<key>enable-maxmem</key>
 				<data>
 				AQAAAA==
-				</data>
-				<key>framebuffer-con0-type</key>
-				<data>
-				AAQAAA==
 				</data>
 				<key>framebuffer-con1-enable</key>
 				<data>
@@ -794,10 +750,10 @@
 				<key>ForceDisplayAlignment</key>
 				<false/>
 				<key>boot-args</key>
-				<string>-v keepsyms=1 debug=0x100 alcid=3 -igfxdvmt -wegnoegpu unfairgva=1</string>
+				<string>-v keepsyms=1 debug=0x100 alcid=3 -igfxdvmt -wegnoegpu -no_compat_check igfxagdc=0 agdpmod=vit9696</string>
 				<key>csr-active-config</key>
 				<data>
-				AAAAAA==
+				AwgAAA==
 				</data>
 				<key>prev-lang:kbd</key>
 				<string>en-US:0</string>

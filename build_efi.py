@@ -50,7 +50,6 @@ acpi_sources = [
     ("tools/Getting-Started-With-ACPI/extra-files/compiled/SSDT-PLUG-DRTNIA.aml", "SSDT-PLUG-DRTNIA.aml"),
     ("tools/Getting-Started-With-ACPI/extra-files/compiled/SSDT-EC-USBX-LAPTOP.aml", "SSDT-EC-USBX-LAPTOP.aml"),
     ("tools/Getting-Started-With-ACPI/extra-files/compiled/SSDT-PNLF.aml", "SSDT-PNLF.aml"),
-    ("tools/Getting-Started-With-ACPI/extra-files/compiled/SSDT-GPU-DISABLE.aml", "SSDT-GPU-DISABLE.aml"),
 ]
 
 for src, dst_name in acpi_sources:
@@ -102,11 +101,6 @@ config["ACPI"]["Add"] = [
         "Comment": "Native Backlight Control for Skylake HD 520 (_UID 16)",
         "Enabled": True,
         "Path": "SSDT-PNLF.aml"
-    },
-    {
-        "Comment": "Disable discrete AMD Radeon GPU (PEG0.PEGP)",
-        "Enabled": True,
-        "Path": "SSDT-GPU-DISABLE.aml"
     }
 ]
 
@@ -137,37 +131,21 @@ booter_quirks["SignalAppleOS"] = False
 booter_quirks["SyncRuntimePermissions"] = False
 
 # Extracted EDID for the replacement 1600x900 screen (CMN14A3)
-edid_1600x900 = bytes.fromhex(
-    "00ffffffffffff000daea314000000001f160104951f117802b535945553932923505400000001010101010101010101010101010101"
-    "1c2a405461841a303020350035ae1000001a131c405461841a303020350035ae1000001a000000000000000000000000000000000000"
-    "00000002000c3dff0c3c7d1511237d000000006e"
-)
-
 # Configure DeviceProperties
 config["DeviceProperties"]["Add"] = {
     "PciRoot(0x0)/Pci(0x2,0x0)": {
-        "AAPL,ig-platform-id": bytes.fromhex("00001619"),     # 0x19160000 = SKL HD 520 Native
+        "AAPL,ig-platform-id": bytes.fromhex("00001619"),     # 0x19160000 = SKL HD 520 Native Mobile
         "device-id": bytes.fromhex("16190000"),               # 0x19160000 = Native HD 520
-        "AAPL00,DualLink": bytes.fromhex("01000000"),         # 1 = DualLink eDP bus for 1600x900+ high-res panel
-        "@0,display-dual-link": bytes.fromhex("01000000"),    # Connector 0 dual-link signaling
-        "AAPL00,override-no-connect": edid_1600x900,          # Hardware EDID for 1600x900 CMN14A3
-        "disable-agdc": bytes.fromhex("01000000"),            # Disable AppleGraphicsDeviceControl
         "enable-dvmt-calc-fix": bytes.fromhex("01000000"),     # Fix getUnifiedMemorySize assertion panic
+        "enable-maxmem": bytes.fromhex("01000000"),            # Maximize graphics memory allocation
         "framebuffer-patch-enable": bytes.fromhex("01000000"),
-        "framebuffer-stolenmem": bytes.fromhex("00004001"),   # 20 MB stolen memory
+        "framebuffer-stolenmem": bytes.fromhex("00004001"),   # 20 MB stolen memory (anti-stutter fix)
         "framebuffer-fbmem": bytes.fromhex("0000c000"),       # 12 MB framebuffer (fixes 1600x900 double buffer overflow freeze!)
-        "framebuffer-con0-enable": bytes.fromhex("01000000"), # Internal eDP port enable
-        "framebuffer-con0-type": bytes.fromhex("00040000"),   # DisplayPort/eDP type (fixes LVDS DDI transmitter hang)
         "framebuffer-con1-enable": bytes.fromhex("01000000"), # HDMI port enable
         "framebuffer-con1-type": bytes.fromhex("00080000"),   # HDMI type
         "hda-gfx": "onboard-1",
         "model": "Intel HD Graphics 520"
         # NOTE: rps-control is STRICTLY OMITTED to prevent the 5-second RC6 GPU idle freeze!
-    },
-    "PciRoot(0x0)/Pci(0x1,0x0)/Pci(0x0,0x0)": {
-        "IOName": "#display",
-        "class-code": bytes.fromhex("ffffffff"),
-        "name": b"#display\x00"
     }
 }
 config["DeviceProperties"]["Delete"] = {}
@@ -422,8 +400,8 @@ config["Misc"]["Tools"] = [
 # Configure NVRAM
 config["NVRAM"]["Add"]["7C436110-AB2A-4BBB-A880-FE41995C9F82"] = {
     "ForceDisplayAlignment": False,
-    "boot-args": "-v keepsyms=1 debug=0x100 alcid=3 -igfxdvmt -wegnoegpu unfairgva=1",
-    "csr-active-config": bytes.fromhex("00000000"),
+    "boot-args": "-v keepsyms=1 debug=0x100 alcid=3 -igfxdvmt -wegnoegpu -no_compat_check igfxagdc=0 agdpmod=vit9696",
+    "csr-active-config": bytes.fromhex("03080000"),
     "prev-lang:kbd": "en-US:0",
     "run-efi-updater": "No"
 }
