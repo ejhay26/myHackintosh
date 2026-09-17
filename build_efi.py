@@ -398,7 +398,7 @@ config["Misc"]["Tools"] = [
 # Configure NVRAM
 config["NVRAM"]["Add"]["7C436110-AB2A-4BBB-A880-FE41995C9F82"] = {
     "ForceDisplayAlignment": False,
-    "boot-args": "-v keepsyms=1 debug=0x100 alcid=3 -igfxdvmt -wegnoegpu -no_compat_check igfxagdc=0 agdpmod=vit9696 amfi=0x80 amfi_get_out_of_my_way=1 ipc_control_port_options=0",
+    "boot-args": "-v keepsyms=1 debug=0x100 alcid=3 -igfxdvmt -wegnoegpu unfairgva=1",
     "csr-active-config": bytes.fromhex("03080000"),
     "prev-lang:kbd": "en-US:0",
     "run-efi-updater": "No"
@@ -416,13 +416,13 @@ config["NVRAM"]["WriteFlash"] = True
 config["PlatformInfo"]["Generic"] = {
     "AdviseFeatures": False,
     "MaxBIOSVersion": False,
-    "MLB": "C027082004NHWVP1H",
+    "MLB": "C17738700J9HMHK1M",
     "ProcessorType": 0,
     "ROM": bytes.fromhex("112233445566"),
     "SpoofVendor": True,
     "SystemMemoryStatus": "Auto",
-    "SystemProductName": "MacBookPro14,1",
-    "SystemSerialNumber": "C02T9DYYHV29",
+    "SystemProductName": "MacBookPro13,1",
+    "SystemSerialNumber": "C17VFEYBGVC1",
     "SystemUUID": "D40F55CB-7CD7-4712-A3CB-36C7FFF69DA6"
 }
 config["PlatformInfo"]["UpdateDataHub"] = True

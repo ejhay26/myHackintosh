@@ -20,16 +20,16 @@ A bare-metal, rock-solid OpenCore EFI configuration specifically tailored for th
 | :--- | :--- | :--- |
 | **Model** | Lenovo Ideapad 300-14ISK (Type 80Q6) | Supported |
 | **CPU** | Intel Core i5-6200U (2 cores, 4 threads, 2.3 GHz - 2.8 GHz) | Native via `SSDT-PLUG-DRTNIA` (`plugin-type=1`) |
-| **iGPU** | Intel HD Graphics 520 (Skylake GT2, Device ID `0x1916`) | Native QE/CI Metal acceleration, 1536 MB VRAM |
+| **iGPU** | Intel HD Graphics 520 (Skylake GT2, Device ID `0x1916`) | Native QE/CI Metal acceleration, default ~1536 MB VRAM (intended default for stability; not 2048 MB) |
 | **BIOS DVMT** | InsydeH2O UEFI BIOS (Locked to 32 MB DVMT) | Supported via `enable-dvmt-calc-fix` + 12MB/20MB rebalance |
 | **dGPU** | AMD Radeon R5 M330 (`PEG0.PEGP`) | Disabled via `-wegnoegpu` & ACPI to conserve battery |
 | **RAM** | 16 GB DDR3L-1600 MHz (Dual-Channel) | Supported |
 | **Storage** | Kingston SA400S37240G 240GB SATA SSD | Multi-boot (Windows 10, macOS Monterey, Linux) |
-| **Display (Custom)** | **14.0" 1600x900 HD+ (`CMN14A3` / N140FGE-EA2)** *(Upgraded from stock 1366x768)* | Native GUI brightness slider & dual-link timing |
+| **Display (Custom)** | **14.0" 1600x900 HD+ (`CMN14A3` / N140FGE-EA2)** *(Upgraded from stock 1366x768)* | Native macOS Control Center brightness slider & dual-link timing |
 | **Audio** | Realtek ALC236 / Conexant CX20751/2 | Working via `AppleALC.kext` (`alcid=3`) |
 | **Ethernet** | Realtek RTL8168/8111 PCI Gigabit Ethernet | Working via `RealtekRTL8111.kext` v2.4.2 |
 | **Touchpad** | Synaptics PS/2 Touchpad | Gestures working via `VoodooPS2Controller.kext` |
-| **Keyboard** | Standard PS/2 Laptop Keyboard | Working via `VoodooPS2Keyboard.kext` |
+| **Keyboard** | Standard PS/2 Laptop Keyboard | Working via `VoodooPS2Keyboard.kext` *(Note: Keyboard brightness hotkeys are not functional; adjust brightness directly in macOS Control Center)* |
 | **Battery** | Lenovo Dual-Cell / Embedded Controller | Working via `ECEnabler.kext` + `SMCBatteryManager.kext` |
 
 ---
@@ -62,17 +62,17 @@ Standard online Skylake EFIs frequently suffer from micro-freezes, game hangs, a
 * **Direct EDID Injection (`AAPL00,override-no-connect`)**: Exact 128-byte hardware EDID for `CMN14A3` injected into `DeviceProperties` for timing synchronization.
 * **Dual-Link Bus Bandwidth (`AAPL00,DualLink = <01 00 00 00>` & `@0,display-dual-link = <01 00 00 00>`)**: Enables dual-link pixel clock bandwidth required for horizontal resolutions $\ge 1600\text{px}$.
 * **DisplayPort / eDP Connector (`framebuffer-con0-type = <00 04 00 00>`)**: Directs the DDI transmitter to drive internal eDP natively.
-* **Skylake Backlight Modulation (`SSDT-PNLF.aml`)**: Injects `PNLF` properly nested inside `_SB.PCI0.GFX0` with `_UID = 0x10` (PWM frequency `0x56C`).
+* **Skylake Backlight Modulation (`SSDT-PNLF.aml`)**: Injects `PNLF` properly nested inside `_SB.PCI0.GFX0` with `_UID = 0x10` (PWM frequency `0x56C`). Backlight intensity is adjusted directly through the macOS Control Center / System Settings slider *(keyboard brightness hotkeys are not mapped to ACPI on this model)*.
 
 ---
 
 ## OpenCore Bootloader Configuration
 
 * **OpenCore Version:** 1.0.7
-* **SMBIOS:** `MacBookPro13,1` (native Skylake, dual-core, native power management)
+* **SMBIOS:** `MacBookPro13,1` (Native Skylake, dual-core, native power management; officially maxes out at Monterey 12.7.6 so Apple Software Update never prompts for incompatible Ventura upgrades)
 * **Boot-args:** `-v keepsyms=1 debug=0x100 alcid=3 -igfxdvmt -wegnoegpu unfairgva=1`
 * **Windows SMBIOS Protection:** `CustomSMBIOSGuid = True`, `UpdateSMBIOSMode = Custom`. Windows 10 boots completely unmolested with native OEM ACPI tables and an activated OEM license.
-* **Graphical Menu:** OpenCanopy activated with `GoldenGate` icons and mouse support. Tapping **Spacebar** toggles auxiliary entries (`Reset NVRAM`).
+* **Graphical Menu:** OpenCanopy activated with customized `GoldenGate` theme featuring modern, high-resolution original designs for Windows 11, official Apple logo, and the authentic Linux Tux Penguin, with full mouse pointer control and a sleek dark slate background. Tapping **Spacebar** toggles auxiliary entries (`Reset NVRAM`).
 
 ---
 
