@@ -1,4 +1,5 @@
 import os
+import sys
 import shutil
 import uuid
 import plistlib
@@ -44,6 +45,8 @@ shutil.copy2("tools/OpenCore_DEBUG/X64/EFI/OC/Tools/OpenShell.efi", os.path.join
 
 # 4. Copy Resources (Canopy GUI icons, fonts, audio)
 shutil.copytree("tools/OcBinaryData/Resources", RESOURCES_DIR, dirs_exist_ok=True)
+# Ensure custom modern OS icons (Windows 11 Azure Blue, Apple Platinum White, Tux) are applied
+subprocess.run([sys.executable, os.path.join(WORKSPACE, "tools", "render_icons.py")], check=True)
 
 # 5. Copy ACPI Tables
 acpi_sources = [
@@ -137,10 +140,9 @@ config["DeviceProperties"]["Add"] = {
         "AAPL,ig-platform-id": bytes.fromhex("00001619"),     # 0x19160000 = SKL HD 520 Native Mobile
         "device-id": bytes.fromhex("16190000"),               # 0x19160000 = Native HD 520
         "enable-dvmt-calc-fix": bytes.fromhex("01000000"),     # Fix getUnifiedMemorySize assertion panic
-        "enable-maxmem": bytes.fromhex("01000000"),            # Maximize graphics memory allocation
         "framebuffer-patch-enable": bytes.fromhex("01000000"),
-        "framebuffer-stolenmem": bytes.fromhex("00003001"),   # 19 MB stolen memory (safe 28MB total with 9MB fbmem)
-        "framebuffer-fbmem": bytes.fromhex("00009000"),       # 9 MB framebuffer
+        "framebuffer-stolenmem": bytes.fromhex("00004001"),   # 20 MB stolen memory (total 32MB with 12MB fbmem)
+        "framebuffer-fbmem": bytes.fromhex("0000C000"),       # 12 MB framebuffer (required for 1600x900 double buffer)
         "framebuffer-con1-enable": bytes.fromhex("01000000"), # HDMI port enable
         "framebuffer-con1-type": bytes.fromhex("00080000")    # HDMI type
         # NOTE: rps-control is STRICTLY OMITTED to prevent the 5-second RC6 GPU idle freeze!
@@ -398,7 +400,7 @@ config["Misc"]["Tools"] = [
 # Configure NVRAM
 config["NVRAM"]["Add"]["7C436110-AB2A-4BBB-A880-FE41995C9F82"] = {
     "ForceDisplayAlignment": False,
-    "boot-args": "-v keepsyms=1 debug=0x100 alcid=3 -igfxdvmt -wegnoegpu unfairgva=1",
+    "boot-args": "-v keepsyms=1 debug=0x100 alcid=3 -wegnoegpu unfairgva=1",
     "csr-active-config": bytes.fromhex("03080000"),
     "prev-lang:kbd": "en-US:0",
     "run-efi-updater": "No"
@@ -416,13 +418,13 @@ config["NVRAM"]["WriteFlash"] = True
 config["PlatformInfo"]["Generic"] = {
     "AdviseFeatures": False,
     "MaxBIOSVersion": False,
-    "MLB": "C17738700J9HMHK1M",
+    "MLB": "C027082004NHWVP1H",
     "ProcessorType": 0,
     "ROM": bytes.fromhex("112233445566"),
     "SpoofVendor": True,
     "SystemMemoryStatus": "Auto",
-    "SystemProductName": "MacBookPro13,1",
-    "SystemSerialNumber": "C17VFEYBGVC1",
+    "SystemProductName": "MacBookPro14,1",
+    "SystemSerialNumber": "C02T9DYYHV29",
     "SystemUUID": "D40F55CB-7CD7-4712-A3CB-36C7FFF69DA6"
 }
 config["PlatformInfo"]["UpdateDataHub"] = True
