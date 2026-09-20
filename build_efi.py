@@ -344,6 +344,9 @@ kernel_quirks["ThirdPartyDrives"] = False
 kernel_quirks["XhciPortLimit"] = False
 
 # Configure Misc
+config["Misc"]["BlessOverride"] = [
+    "\\EFI\\systemd\\systemd-bootx64.efi"
+]
 config["Misc"]["Boot"]["ConsoleAttributes"] = 0
 config["Misc"]["Boot"]["HibernateMode"] = "None"
 config["Misc"]["Boot"]["HibernateSkipsPicker"] = False
