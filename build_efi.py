@@ -344,8 +344,18 @@ kernel_quirks["ThirdPartyDrives"] = False
 kernel_quirks["XhciPortLimit"] = False
 
 # Configure Misc
-config["Misc"]["BlessOverride"] = [
-    "\\EFI\\systemd\\systemd-bootx64.efi"
+config["Misc"]["BlessOverride"] = []
+config["Misc"]["Entries"] = [
+    {
+        "Arguments": "",
+        "Auxiliary": False,
+        "Comment": "NixOS Linux",
+        "Enabled": True,
+        "Flavour": "Linux:NixOS",
+        "Name": "NixOS",
+        "Path": "PciRoot(0x0)/Pci(0x17,0x0)/Sata(0x0,0x0,0x0)/HD(1,GPT,F7E4C46B-F373-4FC8-8E18-4AE933543216,0x800,0x200000)/\\EFI\\systemd\\systemd-bootx64.efi",
+        "TextMode": False
+    }
 ]
 config["Misc"]["Boot"]["ConsoleAttributes"] = 0
 config["Misc"]["Boot"]["HibernateMode"] = "None"
