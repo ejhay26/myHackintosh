@@ -140,9 +140,10 @@ config["DeviceProperties"]["Add"] = {
         "AAPL,ig-platform-id": bytes.fromhex("00001619"),     # 0x19160000 = SKL HD 520 Native Mobile
         "device-id": bytes.fromhex("16190000"),               # 0x19160000 = Native HD 520
         "enable-dvmt-calc-fix": bytes.fromhex("01000000"),     # Fix getUnifiedMemorySize assertion panic
+        "enable-maxmem": bytes.fromhex("01000000"),            # Maximize graphics memory allocation
         "framebuffer-patch-enable": bytes.fromhex("01000000"),
-        "framebuffer-stolenmem": bytes.fromhex("00004001"),   # 20 MB stolen memory (total 32MB with 12MB fbmem)
-        "framebuffer-fbmem": bytes.fromhex("0000C000"),       # 12 MB framebuffer (required for 1600x900 double buffer)
+        "framebuffer-stolenmem": bytes.fromhex("00003001"),   # 19 MB stolen memory (safe 28MB total with 9MB fbmem)
+        "framebuffer-fbmem": bytes.fromhex("00009000"),       # 9 MB framebuffer
         "framebuffer-con1-enable": bytes.fromhex("01000000"), # HDMI port enable
         "framebuffer-con1-type": bytes.fromhex("00080000")    # HDMI type
         # NOTE: rps-control is STRICTLY OMITTED to prevent the 5-second RC6 GPU idle freeze!
@@ -413,7 +414,7 @@ config["Misc"]["Tools"] = [
 # Configure NVRAM
 config["NVRAM"]["Add"]["7C436110-AB2A-4BBB-A880-FE41995C9F82"] = {
     "ForceDisplayAlignment": False,
-    "boot-args": "-v keepsyms=1 debug=0x100 alcid=3 -wegnoegpu unfairgva=1",
+    "boot-args": "-v keepsyms=1 debug=0x100 alcid=3 -igfxdvmt -wegnoegpu -no_compat_check igfxagdc=0 agdpmod=vit9696 amfi=0x80 amfi_get_out_of_my_way=1 ipc_control_port_options=0 unfairgva=1",
     "csr-active-config": bytes.fromhex("03080000"),
     "prev-lang:kbd": "en-US:0",
     "run-efi-updater": "No"
